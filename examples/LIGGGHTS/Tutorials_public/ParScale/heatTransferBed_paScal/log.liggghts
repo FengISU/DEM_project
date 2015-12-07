@@ -1,0 +1,211 @@
+LIGGGHTS (Version LIGGGHTS-PUBLIC 3.2.1, compiled 2015-09-18-13:16:10 by fenglei, git commit f1f4118076fd92a2ac5275cf56e1862988d61434 based on LAMMPS 23 Nov 2013)
+#collision example
+variable nParticles equal 800
+variable vFluct equal 0.0
+variable rBig   equal 8e-3
+variable skin   equal 8e-4
+variable fOutput   equal 1000
+
+atom_style	granular
+atom_modify	map array
+boundary	f f f			#For style f, the position of the face is fixed. If an atom moves outside the face it may be lost.
+newton		off
+
+communicate	single vel yes
+
+units		si
+
+region		reg block 0.0 0.2 0.0 0.2 0.0 0.2 units box   #(reg=ID xlo xhi ylo yhi zlo zhi)
+create_box	1 reg
+Created orthogonal box = (0 0 0) to (0.2 0.2 0.2)
+  1 by 1 by 1 MPI processor grid
+
+neighbor	${skin} bin
+neighbor	0.0008 bin
+neigh_modify	delay 0
+
+#Material properties required for new pair styles
+fix 		m1 all property/global youngsModulus peratomtype 5.e6
+fix 		m2 all property/global poissonsRatio peratomtype 0.45
+fix 		m3 all property/global coefficientRestitution peratomtypepair 1 0.8
+fix 		m4 all property/global coefficientFriction peratomtypepair 1 0.1
+#fix 		m5 all property/global characteristicVelocity scalar 2.
+
+#New pair style
+pair_style 	gran model hertz tangential history		 #Hertzian without cohesion
+==== PAIR SETTINGS ====
+ limitForce = off
+ tangential_damping = on
+==== PAIR SETTINGS ====
+pair_coeff	* *
+
+timestep	1e-5
+
+#Gravity & Walls
+fix         gravi all gravity 9.81 vector 0.0 -1.0 0.0
+fix 		zwalls1 all wall/gran model hertz tangential history primitive type 1  zplane 0.0
+==== WALL zwalls1 SETTINGS ====
+ limitForce = off
+ tangential_damping = on
+==== WALL zwalls1 SETTINGS ====
+fix 		zwalls2 all wall/gran model hertz tangential history primitive type 1  zplane 0.2
+==== WALL zwalls2 SETTINGS ====
+ limitForce = off
+ tangential_damping = on
+==== WALL zwalls2 SETTINGS ====
+fix 		xwalls1 all wall/gran model hertz tangential history primitive type 1  xplane 0.0
+==== WALL xwalls1 SETTINGS ====
+ limitForce = off
+ tangential_damping = on
+==== WALL xwalls1 SETTINGS ====
+fix			xwalls2 all wall/gran model hertz tangential history primitive type 1  xplane 0.2
+==== WALL xwalls2 SETTINGS ====
+ limitForce = off
+ tangential_damping = on
+==== WALL xwalls2 SETTINGS ====
+fix			ywalls1 all wall/gran model hertz tangential history primitive type 1  yplane 0.0
+==== WALL ywalls1 SETTINGS ====
+ limitForce = off
+ tangential_damping = on
+==== WALL ywalls1 SETTINGS ====
+fix			ywalls2 all wall/gran model hertz tangential history primitive type 1  yplane 0.2
+==== WALL ywalls2 SETTINGS ====
+ limitForce = off
+ tangential_damping = on
+==== WALL ywalls2 SETTINGS ====
+
+#heat transfer
+fix 		ftco all property/global thermalConductivity peratomtype 0.1
+fix 		ftca all property/global thermalCapacity peratomtype 10.
+fix         heattransfer all heat/gran initial_temperature 800. #(temperatur aller partikel müss geändert werden!)
+
+#region of insertion
+region 		PIR1 cylinder y 0.1 0.1 0.092 0.00   0.20 units box
+								 # cylinder args = dim c1 c2 radius lo hi
+			 					 #  dim = x or y or z = axis of cylinder
+  								 #  c1,c2 = coords of cylinder axis in other 2 dimensions (distance units)
+   								 #  radius = cylinder radius (distance units)
+  								 #  radius can be a variable (see below)
+ 								 #  lo,hi = bounds of cylinder in dim (distance units)
+
+#particle distributions and insertion
+fix			pts1 all particletemplate/sphere 1001 atom_type 1 density constant 1000             radius gaussian number 0.008 2.5e-3
+fix			pts2 all particletemplate/sphere 1001 atom_type 1 density constant 1000             radius gaussian number 0.002 0.1e-3
+fix			pdd1 all particledistribution/discrete 1001  2 pts1 0.98 pts2 0.02
+
+fix			ins all insert/pack seed 1001 distributiontemplate pdd1             vel uniform 0 0 0 ${vFluct} ${vFluct} ${vFluct} 			insert_every once overlapcheck yes all_in yes particles_in_region ${nParticles} region PIR1
+fix			ins all insert/pack seed 1001 distributiontemplate pdd1             vel uniform 0 0 0 0 ${vFluct} ${vFluct} 			insert_every once overlapcheck yes all_in yes particles_in_region ${nParticles} region PIR1
+fix			ins all insert/pack seed 1001 distributiontemplate pdd1             vel uniform 0 0 0 0 0 ${vFluct} 			insert_every once overlapcheck yes all_in yes particles_in_region ${nParticles} region PIR1
+fix			ins all insert/pack seed 1001 distributiontemplate pdd1             vel uniform 0 0 0 0 0 0 			insert_every once overlapcheck yes all_in yes particles_in_region ${nParticles} region PIR1
+fix			ins all insert/pack seed 1001 distributiontemplate pdd1             vel uniform 0 0 0 0 0 0 			insert_every once overlapcheck yes all_in yes particles_in_region 800 region PIR1
+
+#apply nve integration to all particles
+fix			integr all nve/sphere
+
+#compute_modify temp thermo yes
+
+#output settings, include total thermal energy
+compute		rke all erotate/sphere
+thermo_style	custom step atoms ke c_rke f_heattransfer vol
+thermo		100
+thermo_modify	lost ignore norm no
+compute_modify	thermo_temp dynamic yes
+
+#insert the particles
+run			1
+==== PAIR GLOBAL PROPERTIES ====
+ poissonsRatio = [0.45]
+ youngsModulus = [5e+06]
+ Geff = [556174]
+ Yeff = [3.1348e+06]
+ betaeff = [-0.0708503]
+ coeffFrict = [0.1]
+ coefficientRestitution = [0.8]
+ coefficientRestitutionLog = [-0.223144]
+==== PAIR GLOBAL PROPERTIES ====
+==== WALL zwalls1 GLOBAL PROPERTIES ====
+ poissonsRatio = [0.45]
+ youngsModulus = [5e+06]
+ Geff = [556174]
+ Yeff = [3.1348e+06]
+ betaeff = [-0.0708503]
+ coeffFrict = [0.1]
+ coefficientRestitution = [0.8]
+ coefficientRestitutionLog = [-0.223144]
+==== WALL zwalls1 GLOBAL PROPERTIES ====
+==== WALL zwalls2 GLOBAL PROPERTIES ====
+ poissonsRatio = [0.45]
+ youngsModulus = [5e+06]
+ Geff = [556174]
+ Yeff = [3.1348e+06]
+ betaeff = [-0.0708503]
+ coeffFrict = [0.1]
+ coefficientRestitution = [0.8]
+ coefficientRestitutionLog = [-0.223144]
+==== WALL zwalls2 GLOBAL PROPERTIES ====
+==== WALL xwalls1 GLOBAL PROPERTIES ====
+ poissonsRatio = [0.45]
+ youngsModulus = [5e+06]
+ Geff = [556174]
+ Yeff = [3.1348e+06]
+ betaeff = [-0.0708503]
+ coeffFrict = [0.1]
+ coefficientRestitution = [0.8]
+ coefficientRestitutionLog = [-0.223144]
+==== WALL xwalls1 GLOBAL PROPERTIES ====
+==== WALL xwalls2 GLOBAL PROPERTIES ====
+ poissonsRatio = [0.45]
+ youngsModulus = [5e+06]
+ Geff = [556174]
+ Yeff = [3.1348e+06]
+ betaeff = [-0.0708503]
+ coeffFrict = [0.1]
+ coefficientRestitution = [0.8]
+ coefficientRestitutionLog = [-0.223144]
+==== WALL xwalls2 GLOBAL PROPERTIES ====
+==== WALL ywalls1 GLOBAL PROPERTIES ====
+ poissonsRatio = [0.45]
+ youngsModulus = [5e+06]
+ Geff = [556174]
+ Yeff = [3.1348e+06]
+ betaeff = [-0.0708503]
+ coeffFrict = [0.1]
+ coefficientRestitution = [0.8]
+ coefficientRestitutionLog = [-0.223144]
+==== WALL ywalls1 GLOBAL PROPERTIES ====
+==== WALL ywalls2 GLOBAL PROPERTIES ====
+ poissonsRatio = [0.45]
+ youngsModulus = [5e+06]
+ Geff = [556174]
+ Yeff = [3.1348e+06]
+ betaeff = [-0.0708503]
+ coeffFrict = [0.1]
+ coefficientRestitution = [0.8]
+ coefficientRestitutionLog = [-0.223144]
+==== WALL ywalls2 GLOBAL PROPERTIES ====
+INFO: Particle insertion ins: inserting every 0 steps
+Memory usage per processor = 4.24231 Mbytes
+Step Atoms KinEng rke heattran Volume 
+       0        0           -0            0            0        0.008 
+INFO: Particle insertion ins: inserted 800 particle templates (mass 0.838235) at step 1
+ - a total of 800 particle templates (mass 0.838235) inserted so far.
+       1      800 1.008356e-09            0    6705.8808        0.008 
+Loop time of 0.0103168 on 1 procs for 1 steps with 800 atoms
+
+Pair  time (%) = 2.59876e-05 (0.251895)
+Neigh time (%) = 0.00291681 (28.2723)
+Comm  time (%) = 2.74181e-05 (0.265761)
+Outpt time (%) = 9.29832e-05 (0.901276)
+Other time (%) = 0.00725365 (70.3087)
+
+Nlocal:    800 ave 800 max 800 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    0 ave 0 max 0 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    93 ave 93 max 93 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 93
+Ave neighs/atom = 0.11625
+Neighbor list builds = 1
+Dangerous builds = 0

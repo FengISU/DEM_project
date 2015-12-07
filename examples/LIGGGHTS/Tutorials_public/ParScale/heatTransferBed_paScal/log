@@ -1,0 +1,294 @@
+LIGGGHTS (Version LIGGGHTS-PUBLIC 3.2.1, compiled 2015-09-18-13:16:10 by fenglei, git commit f1f4118076fd92a2ac5275cf56e1862988d61434 based on LAMMPS 23 Nov 2013)
+Created orthogonal box = (0 0 0) to (0.2 0.2 0.2)
+  1 by 1 by 1 MPI processor grid
+==== PAIR SETTINGS ====
+ limitForce = off
+ tangential_damping = on
+==== PAIR SETTINGS ====
+==== WALL zwalls1 SETTINGS ====
+ limitForce = off
+ tangential_damping = on
+==== WALL zwalls1 SETTINGS ====
+==== WALL zwalls2 SETTINGS ====
+ limitForce = off
+ tangential_damping = on
+==== WALL zwalls2 SETTINGS ====
+==== WALL xwalls1 SETTINGS ====
+ limitForce = off
+ tangential_damping = on
+==== WALL xwalls1 SETTINGS ====
+==== WALL xwalls2 SETTINGS ====
+ limitForce = off
+ tangential_damping = on
+==== WALL xwalls2 SETTINGS ====
+==== WALL ywalls1 SETTINGS ====
+ limitForce = off
+ tangential_damping = on
+==== WALL ywalls1 SETTINGS ====
+==== WALL ywalls2 SETTINGS ====
+ limitForce = off
+ tangential_damping = on
+==== WALL ywalls2 SETTINGS ====
+Fix particledistribution/discrete (id pdd1): distribution based on mass%:
+    pts1: d=3.100000e-02 (max. bounding sphere) mass%=98.000000%
+    pts2: d=4.600000e-03 (max. bounding sphere) mass%=2.000000%
+Fix particledistribution/discrete (id pdd1): distribution based on number%:
+    pts1: d=3.100000e-02 (max. bounding sphere) number%=37.366359%
+    pts2: d=4.600000e-03 (max. bounding sphere) number%=62.633641%
+==== PAIR GLOBAL PROPERTIES ====
+ poissonsRatio = [0.45]
+ youngsModulus = [5e+06]
+ Geff = [556174]
+ Yeff = [3.1348e+06]
+ betaeff = [-0.0708503]
+ coeffFrict = [0.1]
+ coefficientRestitution = [0.8]
+ coefficientRestitutionLog = [-0.223144]
+==== PAIR GLOBAL PROPERTIES ====
+==== WALL zwalls1 GLOBAL PROPERTIES ====
+ poissonsRatio = [0.45]
+ youngsModulus = [5e+06]
+ Geff = [556174]
+ Yeff = [3.1348e+06]
+ betaeff = [-0.0708503]
+ coeffFrict = [0.1]
+ coefficientRestitution = [0.8]
+ coefficientRestitutionLog = [-0.223144]
+==== WALL zwalls1 GLOBAL PROPERTIES ====
+==== WALL zwalls2 GLOBAL PROPERTIES ====
+ poissonsRatio = [0.45]
+ youngsModulus = [5e+06]
+ Geff = [556174]
+ Yeff = [3.1348e+06]
+ betaeff = [-0.0708503]
+ coeffFrict = [0.1]
+ coefficientRestitution = [0.8]
+ coefficientRestitutionLog = [-0.223144]
+==== WALL zwalls2 GLOBAL PROPERTIES ====
+==== WALL xwalls1 GLOBAL PROPERTIES ====
+ poissonsRatio = [0.45]
+ youngsModulus = [5e+06]
+ Geff = [556174]
+ Yeff = [3.1348e+06]
+ betaeff = [-0.0708503]
+ coeffFrict = [0.1]
+ coefficientRestitution = [0.8]
+ coefficientRestitutionLog = [-0.223144]
+==== WALL xwalls1 GLOBAL PROPERTIES ====
+==== WALL xwalls2 GLOBAL PROPERTIES ====
+ poissonsRatio = [0.45]
+ youngsModulus = [5e+06]
+ Geff = [556174]
+ Yeff = [3.1348e+06]
+ betaeff = [-0.0708503]
+ coeffFrict = [0.1]
+ coefficientRestitution = [0.8]
+ coefficientRestitutionLog = [-0.223144]
+==== WALL xwalls2 GLOBAL PROPERTIES ====
+==== WALL ywalls1 GLOBAL PROPERTIES ====
+ poissonsRatio = [0.45]
+ youngsModulus = [5e+06]
+ Geff = [556174]
+ Yeff = [3.1348e+06]
+ betaeff = [-0.0708503]
+ coeffFrict = [0.1]
+ coefficientRestitution = [0.8]
+ coefficientRestitutionLog = [-0.223144]
+==== WALL ywalls1 GLOBAL PROPERTIES ====
+==== WALL ywalls2 GLOBAL PROPERTIES ====
+ poissonsRatio = [0.45]
+ youngsModulus = [5e+06]
+ Geff = [556174]
+ Yeff = [3.1348e+06]
+ betaeff = [-0.0708503]
+ coeffFrict = [0.1]
+ coefficientRestitution = [0.8]
+ coefficientRestitutionLog = [-0.223144]
+==== WALL ywalls2 GLOBAL PROPERTIES ====
+Setting up run ...
+INFO: Resetting random generator for region PIR1
+INFO: Particle insertion ins: inserting every 0 steps
+Memory usage per processor = 4.24231 Mbytes
+Step Atoms KinEng rke heattran Volume 
+       0        0           -0            0            0        0.008 
+insertion: proc 0 at 0 %
+insertion: proc 0 at 10 %
+insertion: proc 0 at 20 %
+insertion: proc 0 at 30 %
+insertion: proc 0 at 40 %
+insertion: proc 0 at 50 %
+insertion: proc 0 at 60 %
+insertion: proc 0 at 70 %
+insertion: proc 0 at 80 %
+insertion: proc 0 at 90 %
+INFO: Particle insertion ins: inserted 800 particle templates (mass 0.838235) at step 1
+ - a total of 800 particle templates (mass 0.838235) inserted so far.
+       1      800 1.008356e-09            0    6705.8808        0.008 
+Loop time of 0.0103168 on 1 procs for 1 steps with 800 atoms
+
+Pair  time (%) = 2.59876e-05 (0.251895)
+Neigh time (%) = 0.00291681 (28.2723)
+Comm  time (%) = 2.74181e-05 (0.265761)
+Outpt time (%) = 9.29832e-05 (0.901276)
+Other time (%) = 0.00725365 (70.3087)
+
+Nlocal:    800 ave 800 max 800 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    0 ave 0 max 0 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    93 ave 93 max 93 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 93
+Ave neighs/atom = 0.11625
+Neighbor list builds = 1
+Dangerous builds = 0
+
+...creating ParScale object... 
+default run directory: ./ 
+ParScale (Version: master-1.1.1-beta, compiled 2015-09-18-12:44:16 by fenglei)
+
+ParScale will run in the 'pascal' directory ...
+
+ParScale is processing your input...
+
+particleMesh initialized with 10 grid points 
+[Process 0/1] CouplingModel with name liggghts initialized. 
+
+...coupling model liggghts (ID: 0) is registered with name liggghts
+
+[Process 0/1] Model with name heatThermalConductivity_solid initialized. 
+
+...this model is registered with ID 0
+Assuming constant model for heatThermalConductivity_solid with default value of: 2 
+[Process 0/1] Model with name heatCapacity_solid initialized. 
+
+...this model is registered with ID 1
+Assuming constant model for heatCapacity_solid with default value of: 3920 
+[Process 0/1] Model with name heatDensity_solid initialized. 
+
+...this model is registered with ID 2
+Assuming constant model for heatDensity_solid with default value of: 1000 
+[Process 0/1] Model with name heatTransferCoeff initialized. 
+
+...this model is registered with ID 3
+Assuming constant model for heatTransferCoeff with default value of: 1500 
+[Process 0/1] Model with name heat initialized. 
+
+...this heat transport Eqn of type 1DSpherical is registered with ID 0
+found solid thermal conductivity in model heatThermalConductivity_solid 
+with value: 2 
+found solid capacity in model heatCapacity_solid 
+with value: 3920 
+found solid density in model heatDensity_solid 
+with value: 1000 
+found heat/mass transfer coefficient in model heatTransferCoeff 
+with value: 1500 
+Boundary condition 1 defined for BC0. 
+Boundary condition 2 defined for BC1. 
+IntegratorCvode will use 'CVDiag' as linear solver.  
+IntegratorCvode successfully initialized with 11 grid points 
+*********ModelEqn initialized*****************
+
+**Processed input
+...ParScale object initialized! 
+
+==== PAIR GLOBAL PROPERTIES ====
+ poissonsRatio = [0.45]
+ youngsModulus = [5e+06]
+ Geff = [556174]
+ Yeff = [3.1348e+06]
+ betaeff = [-0.0708503]
+ coeffFrict = [0.1]
+ coefficientRestitution = [0.8]
+ coefficientRestitutionLog = [-0.223144]
+==== PAIR GLOBAL PROPERTIES ====
+==== WALL zwalls1 GLOBAL PROPERTIES ====
+ poissonsRatio = [0.45]
+ youngsModulus = [5e+06]
+ Geff = [556174]
+ Yeff = [3.1348e+06]
+ betaeff = [-0.0708503]
+ coeffFrict = [0.1]
+ coefficientRestitution = [0.8]
+ coefficientRestitutionLog = [-0.223144]
+==== WALL zwalls1 GLOBAL PROPERTIES ====
+==== WALL zwalls2 GLOBAL PROPERTIES ====
+ poissonsRatio = [0.45]
+ youngsModulus = [5e+06]
+ Geff = [556174]
+ Yeff = [3.1348e+06]
+ betaeff = [-0.0708503]
+ coeffFrict = [0.1]
+ coefficientRestitution = [0.8]
+ coefficientRestitutionLog = [-0.223144]
+==== WALL zwalls2 GLOBAL PROPERTIES ====
+==== WALL xwalls1 GLOBAL PROPERTIES ====
+ poissonsRatio = [0.45]
+ youngsModulus = [5e+06]
+ Geff = [556174]
+ Yeff = [3.1348e+06]
+ betaeff = [-0.0708503]
+ coeffFrict = [0.1]
+ coefficientRestitution = [0.8]
+ coefficientRestitutionLog = [-0.223144]
+==== WALL xwalls1 GLOBAL PROPERTIES ====
+==== WALL xwalls2 GLOBAL PROPERTIES ====
+ poissonsRatio = [0.45]
+ youngsModulus = [5e+06]
+ Geff = [556174]
+ Yeff = [3.1348e+06]
+ betaeff = [-0.0708503]
+ coeffFrict = [0.1]
+ coefficientRestitution = [0.8]
+ coefficientRestitutionLog = [-0.223144]
+==== WALL xwalls2 GLOBAL PROPERTIES ====
+==== WALL ywalls1 GLOBAL PROPERTIES ====
+ poissonsRatio = [0.45]
+ youngsModulus = [5e+06]
+ Geff = [556174]
+ Yeff = [3.1348e+06]
+ betaeff = [-0.0708503]
+ coeffFrict = [0.1]
+ coefficientRestitution = [0.8]
+ coefficientRestitutionLog = [-0.223144]
+==== WALL ywalls1 GLOBAL PROPERTIES ====
+==== WALL ywalls2 GLOBAL PROPERTIES ====
+ poissonsRatio = [0.45]
+ youngsModulus = [5e+06]
+ Geff = [556174]
+ Yeff = [3.1348e+06]
+ betaeff = [-0.0708503]
+ coeffFrict = [0.1]
+ coefficientRestitution = [0.8]
+ coefficientRestitutionLog = [-0.223144]
+==== WALL ywalls2 GLOBAL PROPERTIES ====
+Setting up run ...
+Memory usage per processor = 9.21136 Mbytes
+Step Atoms KinEng rke heattran Volume 
+       1      800 1.008356e-09            0    6705.8808        0.008 
+[Process 0/1] : initalizig ParScale... 
+
+[Process 0/1] *******************************************
+
+[Process 0/1] Will initialize individual components of Pascal now... 
+
+ParticleData: scanning 1 ModelEqns in modelEqnContainer() for phase information. 
+Yor are looking at a 0 model eqn, if species is in phase -1!
+ParticleData: will allocate memory for 1 ModelEqns in modelEqnContainer(). 
+...allocating mem for modelEqn 'heat' with particleDataId 0 
+ParticleData::generatePhaseIDMap: phaseList: 
+phase[0]: 0 
+ParticleData::generatePhaseIDMap: phaseIDMap: 
+phaseIDMap[0]: 0 
+phaseIDMap[1]: -1 
+phaseIDMap[2]: -1 
+phaseIDMap[3]: -1 
+ParticleData allocation completed. 
+
+[Process 0/1] CustomValueTracker::allocate added 800 particles (of 800 global) to the simulation...
+
+[Process 0/1] read in for coupling model done 
+
+Input::fill_container_from_json for scope: radius 
+Input::fill_container_from_json for scope: heat 
